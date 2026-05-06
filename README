@@ -1,0 +1,137 @@
+# 📌 AI Code Explainer – README
+
+## 🧱 System Architecture & Technical Decisions
+
+This project is built using **Core PHP** with a **modular structure and clear separation of concerns** to ensure maintainability and scalability.
+
+### 🔹 Architecture Overview
+
+* **Controller Layer**
+
+  * Handles incoming requests
+  * Performs input validation and language detection
+  * Coordinates between service and data layers
+
+* **Service Layer (AI Integration)**
+
+  * Manages interaction with the LLM via API
+  * Handles prompt construction, API calls, and response parsing
+  * Includes fallback parsing to handle inconsistent AI responses
+
+* **Data Layer**
+
+  * Uses **MySQL with PDO** for data persistence
+  * Stores code snippets and corresponding AI-generated results
+  * Uses prepared statements to prevent SQL injection
+
+* **View Layer**
+
+  * Simple UI for submitting code
+  * Displays:
+
+    * Explanation
+    * Optimized code
+    * Complexity analysis
+    * Diff view (original vs optimized)
+
+---
+
+### ⚙️ Key Technical Decisions
+
+* **Core PHP (No Framework)**
+
+  * Demonstrates strong fundamentals and full control over architecture
+
+* **MySQL with PDO**
+
+  * Production-ready database choice
+  * Secure query handling using prepared statements
+
+* **Service-Oriented AI Integration**
+
+  * AI logic is encapsulated in a dedicated service layer, making it easy to switch providers
+
+* **Hybrid Language Detection**
+
+  * Backend detection using heuristic-based syntax patterns:
+
+    * **Python:** `def`, `import`, `print()`, `range()`
+    * **JavaScript:** `function`, `console.log`, `=>`, `const`, `let`
+  * Prompt-level guidance to improve AI accuracy
+
+* **Robust Response Handling**
+
+  * Regex-based JSON extraction
+  * Fallback parsing for inconsistent responses
+
+* **Diff View Feature**
+
+  * Line-by-line comparison between original and optimized code
+  * Highlights additions and deletions
+
+* **Hallucination Mitigation**
+
+  * Prompt constraints (e.g., “Do not guess if unclear”)
+  * Backend validation for unsupported or incomplete input
+  * Controlled fallback responses
+
+---
+
+## 🤖 AI Tooling & Model Selection
+
+### 🔹 AI Platform Used: OpenRouter
+
+The application uses **OpenRouter** to access open-source Large Language Models.
+
+### 🔹 Model Used:
+
+`baidu/cobuddy:free`
+
+---
+
+### 🎯 Reasoning Behind Selection
+
+* **No Billing Requirement**
+
+  * Suitable for development and assessment environments
+
+* **Ease of Integration**
+
+  * API structure similar to OpenAI
+
+* **Provider-Agnostic Design**
+
+  * Can be easily extended to other providers (OpenAI, HuggingFace)
+
+* **Sufficient Capability**
+
+  * Supports explanation, optimization, and complexity analysis
+
+---
+
+### ⚠️ Limitations & Mitigation
+
+* **Inconsistent JSON Output**
+
+  * Handled via regex extraction and fallback parsing
+
+* **Heuristic Language Detection**
+
+  * Not 100% accurate; mitigated via prompt guidance
+
+* **Potential Hallucinations**
+
+  * Reduced using prompt constraints and validation checks
+
+---
+
+## 🚀 Summary
+
+This system is:
+
+* ✅ Modular and maintainable
+* ✅ Production-oriented (MySQL + secure practices)
+* ✅ Resilient to unreliable AI outputs
+* ✅ Cost-effective and easy to run
+
+It demonstrates practical backend engineering combined with structured AI integration.

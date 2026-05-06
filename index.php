@@ -11,7 +11,6 @@ if(isset($_GET['flg']) && $_GET['flg'] == 1){
 //If FORM is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $code = $_POST['code'] ?? '';
-    $complexity = isset($_POST['complexity']);
     if (!trim($code)) {
         $errormsg = "Code cannot be empty";
     }else{
@@ -19,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($codelang == 'Unknown'){
             $errormsg = "Unsupported or unclear language. Only Python and JavaScript are allowed.";    
         }else{
-            $controller->explain($code,$complexity);
+            $controller->explain($code);
         }
     }
 }
@@ -62,11 +61,7 @@ function generateDiff($old, $new) {
 
     <form method="POST">
         <textarea name="code" rows="10" cols="80"></textarea><br><br>
-
-        <label>
-            <input type="checkbox" name="complexity">
-            Include Complexity
-        </label><br><br>
+        <br>
         <?php 
         if(isset($errormsg) && !empty($errormsg)){
             echo "<div class='alert alert-danger'>$errormsg</div>";

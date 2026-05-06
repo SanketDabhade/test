@@ -11,10 +11,10 @@ class CodeController
     }
 
     /* Function to fetch response from LLM api */
-    public function explain($code,$complexity)
+    public function explain($code)
     {
         $service = new OpenAI();
-        $result = $service->processCode($code, $complexity);
+        $result = $service->processCode($code);
 
         $model = new CodeHistory();
         $model->save($code, $result);

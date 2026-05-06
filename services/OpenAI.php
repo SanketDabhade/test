@@ -10,38 +10,10 @@ class OpenAI
         $this->apiKey = $config['openrouter_api'];
     }
 
-    public function processCode($code, $includeComplexity = false)
+    public function processCode($code)
     {
-        $extra = $includeComplexity ? "Also include time and space complexity." : "";
-
         $prompt = "You are a senior software engineer.
-
-        1. Explain the following code in 2-4 simple sentences.
-        2. Detect technical language
-        3. Then provide an optimized version of the code.
-        4. $extra
-
-        Return ONLY valid JSON. No extra text.
-
-        Format:
-        {
-        \"explanation\": \"...\",
-        \"language\": \"...\",
-        \"optimized_code\": \"...\",
-        \"complexity\": \"...\"
-        }
-
-        Rules:
-        - Do not hallucinate
-        - If unclear, say so
-
-        Code:
-        $code";
-
-        $prompt = "You are a senior software engineer.
-
         Step 1: Determine if the given code is written in Python or JavaScript.
-
         Step 2:
         - If it is Python or JavaScript:
             - Explain the code in 2–4 sentences
